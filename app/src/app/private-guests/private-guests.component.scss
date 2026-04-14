@@ -1,0 +1,392 @@
+:host {
+  --black: #000000;
+  --gray-900: #1a1a1a;
+  --gray-800: #2d2d2d;
+  --gray-700: #4a4a4a;
+  --gray-500: #6b6b6b;
+  --gray-400: #9ca3af;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --white: #ffffff;
+  --success-green: #155724;
+  --success-light: #d4edda;
+  --error-red: #721c24;
+  --error-light: #f8d7da;
+  --warning-yellow: #856404;
+  --warning-light: #fff3cd;
+
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.guests-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+  background: transparent;
+}
+
+.guests-card {
+  width: 100%;
+  max-width: 1200px;
+  max-height: none;
+  background: var(--white);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border: 1px solid var(--gray-200);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--black);
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--gray-700);
+  margin: 0;
+  font-weight: 500;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--gray-700);
+  font-size: 1rem;
+}
+
+.error-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--error-light);
+  border: 1px solid #f5c6cb;
+  border-radius: 0.5rem;
+  color: var(--error-red);
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem;
+  background: var(--gray-100);
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-200);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin-bottom: 2rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.5rem;
+}
+
+.guests-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+
+  thead {
+    background: var(--black);
+    color: var(--white);
+
+    tr th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid var(--gray-200);
+      transition: background-color 0.2s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: var(--gray-100);
+      }
+
+      td {
+        padding: 1rem;
+        color: var(--gray-900);
+      }
+    }
+  }
+}
+
+.column-id {
+  width: 80px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.column-name {
+  min-width: 200px;
+  font-weight: 500;
+}
+
+.column-code {
+  min-width: 150px;
+}
+
+.column-attending {
+  width: 150px;
+  text-align: center;
+}
+
+.code-badge {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.375rem 0.875rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.status-yes {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-no {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.home-btn {
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 0.875rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background: var(--gray-800);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .guests-card {
+    padding: 1.5rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .stat-item {
+    padding: 1rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8125rem;
+  }
+
+  .guests-table {
+    font-size: 0.875rem;
+
+    thead tr th {
+      padding: 0.75rem;
+      font-size: 0.8125rem;
+    }
+
+    tbody tr td {
+      padding: 0.75rem;
+    }
+  }
+
+  .column-id {
+    width: 60px;
+  }
+
+  .column-name {
+    min-width: 150px;
+  }
+
+  .column-code {
+    min-width: 120px;
+  }
+
+  .code-badge {
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .status-badge {
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.625rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .guests-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .guests-card {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .stat-item {
+    padding: 0.75rem;
+  }
+
+  .stat-number {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .guests-table {
+    font-size: 0.8125rem;
+
+    thead tr th {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    tbody tr td {
+      padding: 0.5rem;
+    }
+  }
+
+  .column-id {
+    width: 50px;
+  }
+
+  .column-name {
+    min-width: 120px;
+  }
+
+  .code-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .status-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .home-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+}

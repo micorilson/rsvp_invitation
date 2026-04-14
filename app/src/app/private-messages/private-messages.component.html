@@ -1,0 +1,71 @@
+<div class="messages-container">
+  <div class="messages-card">
+    <div class="header">
+      <h1>Messages</h1>
+      <p class="subtitle">View all messages from guests grouped by invitation code</p>
+    </div>
+
+    @if (isLoading()) {
+      <div class="loading-message">
+        <p>Loading messages...</p>
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <div class="error-message">
+        <p>{{ errorMessage() }}</p>
+      </div>
+    }
+
+    @if (!isLoading() && !errorMessage()) {
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-number">{{ messages().length }}</span>
+          <span class="stat-label">Total Messages</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ groupedMessages().length }}</span>
+          <span class="stat-label">Unique Codes</span>
+        </div>
+      </div>
+
+      @if (groupedMessages().length === 0) {
+        <div class="no-messages">
+          <p>No messages yet. Messages will appear here once guests submit their RSVPs.</p>
+        </div>
+      } @else {
+        <div class="message-groups">
+          @for (group of groupedMessages(); track group.code) {
+            <div class="message-group">
+              <div class="group-header">
+                <div class="group-info">
+                  <span class="group-code">{{ group.code }}</span>
+                  <span class="group-count">{{ group.count }} {{ group.count === 1 ? 'message' : 'messages' }}</span>
+                </div>
+              </div>
+              
+              <div class="messages-list">
+                @for (message of group.messages; track message.id) {
+                  <div class="message-card">
+                    <div class="message-header">
+                      <span class="message-date">{{ formatDate(message.timestamp) }}</span>
+                    </div>
+                    <div class="message-content">
+                      <p>{{ message.message }}</p>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+
+    <div class="actions">
+      <button class="home-btn" type="button" (click)="goToHome()">
+        Back to Home
+      </button>
+    </div>
+  </div>
+</div>

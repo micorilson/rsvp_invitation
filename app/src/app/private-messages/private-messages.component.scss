@@ -1,0 +1,383 @@
+:host {
+  --black: #000000;
+  --gray-900: #1a1a1a;
+  --gray-800: #2d2d2d;
+  --gray-700: #4a4a4a;
+  --gray-500: #6b6b6b;
+  --gray-400: #9ca3af;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --white: #ffffff;
+  --error-red: #721c24;
+  --error-light: #f8d7da;
+
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.messages-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+  background: transparent;
+}
+
+.messages-card {
+  width: 100%;
+  max-width: 1000px;
+  max-height: none;
+  background: var(--white);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border: 1px solid var(--gray-200);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--black);
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--gray-700);
+  margin: 0;
+  font-weight: 500;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--gray-700);
+  font-size: 1rem;
+}
+
+.error-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--error-light);
+  border: 1px solid #f5c6cb;
+  border-radius: 0.5rem;
+  color: var(--error-red);
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem;
+  background: var(--gray-100);
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-200);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+.no-messages {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--gray-700);
+  font-size: 1rem;
+  background: var(--gray-100);
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-200);
+  margin-bottom: 2rem;
+
+  p {
+    margin: 0;
+  }
+}
+
+.message-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.message-group {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.group-header {
+  background: var(--black);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.group-code {
+  font-family: 'Courier New', monospace;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.05em;
+}
+
+.group-count {
+  font-size: 0.875rem;
+  color: var(--gray-300);
+  font-weight: 500;
+}
+
+.messages-list {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message-card {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.message-date {
+  font-size: 0.8125rem;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.message-content {
+  p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--gray-900);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.home-btn {
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 0.875rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background: var(--gray-800);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .messages-card {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .stats {
+    gap: 0.75rem;
+  }
+
+  .stat-item {
+    padding: 1rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8125rem;
+  }
+
+  .message-groups {
+    gap: 1.5rem;
+  }
+
+  .group-header {
+    padding: 0.875rem 1rem;
+  }
+
+  .group-code {
+    font-size: 1rem;
+  }
+
+  .group-count {
+    font-size: 0.8125rem;
+  }
+
+  .messages-list {
+    padding: 0.75rem;
+  }
+
+  .message-card {
+    padding: 0.875rem;
+  }
+
+  .message-content p {
+    font-size: 0.875rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .messages-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .messages-card {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .stat-item {
+    padding: 0.875rem;
+  }
+
+  .stat-number {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .message-groups {
+    gap: 1rem;
+  }
+
+  .group-header {
+    padding: 0.75rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .group-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .group-code {
+    font-size: 0.9375rem;
+  }
+
+  .group-count {
+    font-size: 0.75rem;
+  }
+
+  .messages-list {
+    padding: 0.5rem;
+    gap: 0.75rem;
+  }
+
+  .message-card {
+    padding: 0.75rem;
+  }
+
+  .message-date {
+    font-size: 0.75rem;
+  }
+
+  .message-content p {
+    font-size: 0.8125rem;
+  }
+
+  .home-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+}

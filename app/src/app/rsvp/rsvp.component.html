@@ -1,0 +1,133 @@
+<div class="rsvp-container">
+  <div class="rsvp-card">
+    <div class="header">
+      <p class="cg-font uppercase font-1rem">We're throwing our mom a party,</p>
+      <p class="cg-font uppercase font-1rem">and we'd love for you to witness</p>
+      <p class="ds-font font-5rem">Jenny</p>
+      <p class="ds-font font-2rem">Blooming Into</p>
+      <p class="ds-font font-5rem">60</p>
+      <p class="cg-font uppercase font-1rem">June 20, 2026  |  at 4 pm</p>
+      <p class="cg-font uppercase font-1rem">New jonah's place inland resort</p>
+      <p class="cg-font uppercase font-1rem">brgy. Ibayo, balanga city, bataan</p>
+    </div>
+
+    <div class="search-container">
+      <p class="ds-font font-3rem">RSVP</p>
+      <div class="search-section">
+        <div class="search-box">
+          <input 
+            type="text" 
+            placeholder="Search by name..." 
+            [value]="searchTerm()"
+            (input)="onSearchChange($event)"
+            [disabled]="isLoading()"
+            class="search-input"
+          />
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </div>
+
+        @if (isLoading()) {
+          <div class="loading-message">
+            <p>{{ submitSuccess() ? 'Submitting...' : 'Loading...' }}</p>
+          </div>
+        }
+
+        <div class="guest-list-container">
+          @if (filteredGuests.length === 0) {
+            <div class="no-results">
+              @if (searchTerm().trim() === '') {
+                <p>Please enter a name in the search box to find your guest</p>
+              } @else {
+                <p>No guests found matching "{{ searchTerm() }}"</p>
+              }
+            </div>
+          } @else {
+            <div class="guest-table">
+              <div class="table-header">
+                <div class="column-name">Name</div>
+                <div class="column-attending">Attending</div>
+                <div class="column-not-attending">Not Attending</div>
+              </div>
+              
+              <div class="table-body">
+                @for (guest of filteredGuests; track guest.id) {
+                  <div class="table-row">
+                    <div class="column-name">
+                      <span class="guest-name">{{ guest.name }}</span>
+                    </div>
+                    <div class="column-attending">
+                      <label class="checkbox-wrapper">
+                        <input 
+                          type="checkbox" 
+                          [checked]="guest.attending === true"
+                          [disabled]="isGuestAnsweredInDB(guest.id)"
+                          (change)="updateAttendance(guest.id, true)"
+                          class="checkbox-input"
+                        />
+                        <span class="checkbox-custom"></span>
+                      </label>
+                    </div>
+                    <div class="column-not-attending">
+                      <label class="checkbox-wrapper">
+                        <input 
+                          type="checkbox" 
+                          [checked]="guest.attending === false"
+                          [disabled]="isGuestAnsweredInDB(guest.id)"
+                          (change)="updateAttendance(guest.id, false)"
+                          class="checkbox-input"
+                        />
+                        <span class="checkbox-custom"></span>
+                      </label>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="message-container">
+      <p class="ds-font font-3rem">Message to the Celebrant</p>
+      <div class="message-section">
+        <textarea 
+          class="message-input"
+          placeholder="Message for the celebrant"
+          rows="4"
+          [value]="message()"
+          [disabled]="allGuestsAnswered || filteredGuests.length === 0"
+          (input)="onMessageChange($event)"
+        ></textarea>
+      </div>
+    </div>
+
+
+    @if (submitSuccess()) {
+      <div class="success-message">
+        <p>Thank you! Your RSVP has been submitted successfully.</p>
+      </div>
+    }
+
+    @if (submitError()) {
+      <div class="error-popup">
+        <button class="close-btn" (click)="clearError()" type="button">&times;</button>
+        <p>{{ submitError() }}</p>
+      </div>
+    }
+
+    <div class="actions">
+      <button 
+        class="submit-btn" 
+        type="button" 
+        (click)="submitRSVP()"
+        [disabled]="isLoading()"
+      >
+        {{ isLoading() ? 'Submitting...' : (allGuestsAnswered ? 'Next' : 'Submit') }}
+      </button>
+    </div>
+  </div>
+</div>

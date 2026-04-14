@@ -1,0 +1,101 @@
+/* Home component specific styles */
+
+.container {
+  text-align: center;
+}
+
+/* Component-specific font adjustments */
+.cg-font {
+  font-size: clamp(0.7rem, 1.5vh, 1rem);
+  margin-bottom: clamp(0.25rem, 0.5vh, 0.5rem);
+}
+
+.ds-font {
+  margin-bottom: clamp(0.25rem, 0.5vh, 0.5rem);
+}
+
+/* Content layout */
+.content-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: center;
+  flex: 1;
+  gap: clamp(0.5rem, 2vw, 2rem);
+  min-height: 0;
+  text-align: center;
+}
+
+.left-container,
+.right-container {
+  flex: 0 1 50%;
+  max-width: 50%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(0.5rem, 1.5vh, 1rem);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* QR Code styles */
+.qr-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255, 7, 12, 0.05) 0%, rgba(204, 38, 213, 0.05) 100%);
+  border-radius: 1rem;
+  border: 2px solid rgba(204, 38, 213, 0.1);
+}
+
+.qr-code {
+  width: 250px;
+  height: 250px;
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: block;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.qr-hint {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  text-align: center;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .qr-code { width: 200px; height: 200px; }
+  
+  .content-row {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  
+  .left-container, .right-container {
+    padding: 1rem;
+    flex: 0 1 100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .qr-container { padding: 1.5rem; }
+  .qr-code { width: 180px; height: 180px; }
+  
+  .left-container, .right-container {
+    padding: 0.5rem;
+  }
+}
