@@ -20,7 +20,7 @@
             placeholder="Search by name..." 
             [value]="searchTerm()"
             (input)="onSearchChange($event)"
-            [disabled]="isLoading()"
+            [disabled]="isInitialLoading()"
             class="search-input"
           />
           <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -29,9 +29,9 @@
           </svg>
         </div>
 
-        @if (isLoading()) {
+        @if (isInitialLoading()) {
           <div class="loading-message">
-            <p>{{ submitSuccess() ? 'Submitting...' : 'Loading...' }}</p>
+            <p>Loading...</p>
           </div>
         }
 
@@ -107,7 +107,8 @@
 
 
     @if (submitSuccess()) {
-      <div class="success-message">
+      <div class="success-popup">
+        <button class="close-btn" (click)="clearSuccess()" type="button">&times;</button>
         <p>Thank you! Your RSVP has been submitted successfully.</p>
       </div>
     }
@@ -124,7 +125,7 @@
         class="submit-btn" 
         type="button" 
         (click)="submitRSVP()"
-        [disabled]="isLoading()"
+        [disabled]="isLoading() || (!allGuestsAnswered && !hasNewSelection)"
       >
         {{ isLoading() ? 'Submitting...' : (allGuestsAnswered ? 'Next' : 'Submit') }}
       </button>

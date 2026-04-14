@@ -24,17 +24,19 @@ export class RsvpComponent implements OnInit {
   submitSuccess = signal(false);
   submitError = signal('');
   isLoading = signal(false);
+  isInitialLoading = signal(true);
   
   guests = signal<Guest[]>([]);
   // Store original database state to check if guest already submitted
   originalGuestsState = signal<Guest[]>([]);
   
   private errorTimeout: ReturnType<typeof setTimeout> | null = null;
+  private successTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(private supabase: SupabaseService, private router: Router) {}
 
   async ngOnInit() {
-    this.isLoading.set(false);
+    this.isInitialLoading.set(true);
     try {
       const guests = await this.supabase.getGuests();
       this.guests.set(guests);
@@ -44,7 +46,7 @@ export class RsvpComponent implements OnInit {
       console.error('Error loading guests:', error);
       this.showError('Failed to load guests. Please refresh the page.');
     } finally {
-      this.isLoading.set(false);
+      this.isInitialLoading.set(false);
     }
   }
 
@@ -76,6 +78,17 @@ export class RsvpComponent implements OnInit {
     return filtered.every(guest => this.isGuestAnsweredInDB(guest.id));
   }
 
+  /** True when the user has changed at least one checkbox in the current session */
+  get hasNewSelection(): boolean {
+    const filtered = this.filteredGuests;
+    if (filtered.length === 0) return false;
+    return filtered.some(guest => {
+      // Only count guests that weren't already answered in DB
+      if (this.isGuestAnsweredInDB(guest.id)) return false;
+      return guest.attending !== null;
+    });
+  }
+
   onSearchChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.searchTerm.set(value);
@@ -92,6 +105,27 @@ export class RsvpComponent implements OnInit {
       this.errorTimeout = null;
     }
     this.submitError.set('');
+  }
+
+  clearSuccess() {
+    if (this.successTimeout) {
+      clearTimeout(this.successTimeout);
+      this.successTimeout = null;
+    }
+    this.submitSuccess.set(false);
+  }
+
+  showSuccess() {
+    this.submitSuccess.set(true);
+
+    // Auto-dismiss after 10 seconds
+    if (this.successTimeout) {
+      clearTimeout(this.successTimeout);
+    }
+    this.successTimeout = setTimeout(() => {
+      this.submitSuccess.set(false);
+      this.successTimeout = null;
+    }, 10000);
   }
 
   showError(message: string) {
@@ -178,7 +212,7 @@ export class RsvpComponent implements OnInit {
         await this.supabase.addMessage(code.toUpperCase(), messageText);
       }
 
-      this.submitSuccess.set(true);
+      this.showSuccess();
       this.clearError();
       console.log('RSVP submitted successfully');
       
